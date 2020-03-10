@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
-import color from '../../helpers/color'
+import colorUtils from '../../helpers/color'
 
 import { ColorWrap, EditableInput, Swatch } from '../common'
 
-export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, disableCodeInput, footerComponent,
+import CheckIcon from '@icons/material/CheckIcon'
+
+export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, color, disableCodeInput, footerComponent, center, checkmark,
   styles: passedStyles = {}, className = '' }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -18,6 +20,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
         boxShadow: '0 1px 4px rgba(0,0,0,0.25)',
         borderRadius: '4px',
         position: 'relative',
+        transform: center ? 'translate(55%, 0%)' : null,
       },
       body: {
         padding: '15px 9px 9px 15px',
@@ -123,7 +126,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
   })
 
   const handleChange = (hexcode, e) => {
-    color.isValidHex(hexcode) && onChange({
+    colorUtils.isValidHex(hexcode) && onChange({
       hex: hexcode,
       source: 'hex',
     }, e)
@@ -136,6 +139,40 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
 
       <div style={ styles.body }>
         { map(colors, (c, i) => {
+
+          const activeStyles = reactCSS(
+            {
+              default: {
+                check: {
+                  color: colorUtils.getContrastingColor(c),
+                  display: 'none',
+                  marginLeft: 3,
+                  marginTop: 3,
+                },
+              },
+              active: {
+                check: {
+                  display: 'block',
+                },
+              },
+              'color-#FFFFFF': {
+                check: {
+                  color: '#000',
+                },
+              },
+              transparent: {
+                check: {
+                  color: '#000',
+                },
+              },
+            },
+            {
+              'color-#FFFFFF': c === '#FFFFFF',
+              transparent: c === 'transparent',
+              active: c && (hex === c.toLowerCase()),
+            }
+          )
+
           return (
             <Swatch
               key={ i }
@@ -147,7 +184,11 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
               focusStyle={{
                 boxShadow: `0 0 4px ${ c }`,
               }}
-            />
+            >
+              <div style={ activeStyles.check }>
+                <CheckIcon />
+              </div>
+            </Swatch>
           )
         }) }
         { !!disableCodeInput ? null :
@@ -176,6 +217,8 @@ Twitter.propTypes = {
   styles: PropTypes.object,
   disableCodeInput: PropTypes.bool,
   footerComponent: PropTypes.element,
+  center: PropTypes.bool,
+  checkmark: PropTypes.bool,
 }
 
 Twitter.defaultProps = {
@@ -186,6 +229,8 @@ Twitter.defaultProps = {
   styles: {},
   disableCodeInput: false,
   footerComponent: null,
+  center: false,
+  checkmark: false,
 }
 
 export default ColorWrap(Twitter)

@@ -8,7 +8,7 @@ import ChromeFields from './ChromeFields'
 import ChromePointer from './ChromePointer'
 import ChromePointerCircle from './ChromePointerCircle'
 
-export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, renderers,
+export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, renderers, noShadow, disableCodeInput,
   styles: passedStyles = {}, className = '', defaultView }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -16,7 +16,7 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
         width,
         background: '#fff',
         borderRadius: '2px',
-        boxShadow: '0 0 2px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.3)',
+        boxShadow: noShadow ? null : '0 0 2px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.3)',
         boxSizing: 'initial',
         fontFamily: 'Menlo',
       },
@@ -102,6 +102,7 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
           onChange={ onChange }
         />
       </div>
+
       <div style={ styles.body }>
         <div style={ styles.controls } className="flexbox-fix">
           <div style={ styles.color }>
@@ -131,14 +132,16 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
             </div>
           </div>
         </div>
-        <ChromeFields
-          rgb={ rgb }
-          hsl={ hsl }
-          hex={ hex }
-          view={ defaultView }
-          onChange={ onChange }
-          disableAlpha={ disableAlpha }
-        />
+        { !!disableCodeInput ? null :
+          <ChromeFields
+            rgb={ rgb }
+            hsl={ hsl }
+            hex={ hex }
+            view={ defaultView }
+            onChange={ onChange }
+            disableAlpha={ disableAlpha }
+          />
+        }
       </div>
     </div>
   )
@@ -153,12 +156,16 @@ Chrome.propTypes = {
     "rgb",
     "hsl",
   ]),
+  noShadow: PropTypes.bool,
+  disableCodeInput: PropTypes.bool,
 }
 
 Chrome.defaultProps = {
   width: 225,
   disableAlpha: false,
   styles: {},
+  noShadow: false,
+  disableCodeInput: false,
 }
 
 export default ColorWrap(Chrome)

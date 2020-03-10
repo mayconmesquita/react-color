@@ -7,7 +7,7 @@ import color from '../../helpers/color'
 
 import { ColorWrap, EditableInput, Swatch } from '../common'
 
-export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
+export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, disableCodeInput,
   styles: passedStyles = {}, className = '' }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -150,13 +150,17 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
             />
           )
         }) }
-        <div style={ styles.hash }>#</div>
-        <EditableInput
-          label={null}
-          style={{ input: styles.input }}
-          value={ hex.replace('#', '') }
-          onChange={ handleChange }
-        />
+        { !!disableCodeInput ? null :
+          <div>
+            <div style={ styles.hash }>#</div>
+            <EditableInput
+              label={null}
+              style={{ input: styles.input }}
+              value={ hex.replace('#', '') }
+              onChange={ handleChange }
+            />
+          </div>
+        }
         <div style={ styles.clear } />
       </div>
     </div>
@@ -168,6 +172,7 @@ Twitter.propTypes = {
   triangle: PropTypes.oneOf(['hide', 'top-left', 'top-right', 'top-center']),
   colors: PropTypes.arrayOf(PropTypes.string),
   styles: PropTypes.object,
+  disableCodeInput: PropTypes.bool,
 }
 
 Twitter.defaultProps = {
@@ -176,6 +181,7 @@ Twitter.defaultProps = {
     '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   triangle: 'top-left',
   styles: {},
+  disableCodeInput: false,
 }
 
 export default ColorWrap(Twitter)

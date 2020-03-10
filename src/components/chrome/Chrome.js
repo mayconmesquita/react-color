@@ -8,7 +8,7 @@ import ChromeFields from './ChromeFields'
 import ChromePointer from './ChromePointer'
 import ChromePointerCircle from './ChromePointerCircle'
 
-export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, renderers, noShadow,
+export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, renderers, noShadow, disableCodeInput,
   styles: passedStyles = {}, className = '', defaultView }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -102,6 +102,7 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
           onChange={ onChange }
         />
       </div>
+
       <div style={ styles.body }>
         <div style={ styles.controls } className="flexbox-fix">
           <div style={ styles.color }>
@@ -131,14 +132,16 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
             </div>
           </div>
         </div>
-        <ChromeFields
-          rgb={ rgb }
-          hsl={ hsl }
-          hex={ hex }
-          view={ defaultView }
-          onChange={ onChange }
-          disableAlpha={ disableAlpha }
-        />
+        { !!disableCodeInput ? null :
+          <ChromeFields
+            rgb={ rgb }
+            hsl={ hsl }
+            hex={ hex }
+            view={ defaultView }
+            onChange={ onChange }
+            disableAlpha={ disableAlpha }
+          />
+        }
       </div>
     </div>
   )
@@ -154,13 +157,15 @@ Chrome.propTypes = {
     "hsl",
   ]),
   noShadow: PropTypes.bool,
+  disableCodeInput: PropTypes.bool,
 }
 
 Chrome.defaultProps = {
   width: 225,
   disableAlpha: false,
   styles: {},
-  noShadow: true,
+  noShadow: false,
+  disableCodeInput: false,
 }
 
 export default ColorWrap(Chrome)

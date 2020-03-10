@@ -105,10 +105,21 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
         right: '12px',
       },
     },
+    'top-center-triangle': {
+      triangle: {
+        top: '-10px',
+        left: `calc(${width} - 50% - 9px)`,
+      },
+      triangleShadow: {
+        top: '-11px',
+        left: `calc(${width} - 50% - 9px)`,
+      },
+    },
   }, passedStyles), {
     'hide-triangle': triangle === 'hide',
     'top-left-triangle': triangle === 'top-left',
     'top-right-triangle': triangle === 'top-right',
+    'top-center-triangle': triangle === 'top-center',
   })
 
   const handleChange = (hexcode, e) => {
@@ -154,7 +165,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
 
 Twitter.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  triangle: PropTypes.oneOf(['hide', 'top-left', 'top-right']),
+  triangle: PropTypes.oneOf(['hide', 'top-left', 'top-right', 'top-center']),
   colors: PropTypes.arrayOf(PropTypes.string),
   styles: PropTypes.object,
 }

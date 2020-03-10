@@ -7,7 +7,7 @@ import color from '../../helpers/color'
 
 import { ColorWrap, EditableInput, Swatch } from '../common'
 
-export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, disableCodeInput,
+export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, disableCodeInput, footerComponent,
   styles: passedStyles = {}, className = '' }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -162,6 +162,8 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
           </div>
         }
         <div style={ styles.clear } />
+        {!!footerComponent ? footerComponent : null}
+        <div style={ styles.clear } />
       </div>
     </div>
   )
@@ -173,6 +175,7 @@ Twitter.propTypes = {
   colors: PropTypes.arrayOf(PropTypes.string),
   styles: PropTypes.object,
   disableCodeInput: PropTypes.bool,
+  footerComponent: PropTypes.element,
 }
 
 Twitter.defaultProps = {
@@ -182,6 +185,7 @@ Twitter.defaultProps = {
   triangle: 'top-left',
   styles: {},
   disableCodeInput: false,
+  footerComponent: null,
 }
 
 export default ColorWrap(Twitter)

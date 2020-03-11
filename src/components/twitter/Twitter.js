@@ -222,7 +222,7 @@ Twitter.propTypes = {
   headerComponent: PropTypes.element,
   footerComponent: PropTypes.element,
   center: PropTypes.bool,
-  checkmarkColor: PropTypes.bool,
+  checkmarkColor: PropTypes.string,
 }
 
 Twitter.defaultProps = {
@@ -235,7 +235,7 @@ Twitter.defaultProps = {
   headerComponent: null,
   footerComponent: null,
   center: false,
-  checkmarkColor: false,
+  checkmarkColor: null,
 }
 
 export default ColorWrap(Twitter)

@@ -9,7 +9,7 @@ import { ColorWrap, EditableInput, Swatch } from '../common'
 
 import CheckIcon from '@icons/material/CheckIcon'
 
-export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, color, disableCodeInput, headerComponent, footerComponent, center, checkmark,
+export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, color, disableCodeInput, headerComponent, footerComponent, center, checkmarkColor,
   styles: passedStyles = {}, className = '' }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -147,7 +147,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
             {
               default: {
                 check: {
-                  color: colorUtils.getContrastingColor(c),
+                  color: checkmarkColor || colorUtils.getContrastingColor(c),
                   display: 'none',
                   marginLeft: 3,
                   marginTop: 3,
@@ -222,7 +222,7 @@ Twitter.propTypes = {
   headerComponent: PropTypes.element,
   footerComponent: PropTypes.element,
   center: PropTypes.bool,
-  checkmark: PropTypes.bool,
+  checkmarkColor: PropTypes.bool,
 }
 
 Twitter.defaultProps = {
@@ -235,7 +235,7 @@ Twitter.defaultProps = {
   headerComponent: null,
   footerComponent: null,
   center: false,
-  checkmark: false,
+  checkmarkColor: false,
 }
 
 export default ColorWrap(Twitter)

@@ -9,7 +9,7 @@ import { ColorWrap, EditableInput, Swatch } from '../common'
 
 import CheckIcon from '@icons/material/CheckIcon'
 
-export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, color, disableCodeInput, headerComponent, footerComponent, center, checkmarkColor,
+export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle, color, disableCodeInput, headerComponent, footerComponent, center, checkmarkColor, disablePopover,
   styles: passedStyles = {}, className = '' }) => {
   const styles = reactCSS(merge({
     'default': {
@@ -133,9 +133,13 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
   }
 
   return (
-    <div style={ styles.card } className={ `twitter-picker ${ className }` }>
-      <div style={ styles.triangleShadow } />
-      <div style={ styles.triangle } />
+    <div style={ disablePopover ? styles.card : { width } } className={ `twitter-picker ${ className }` }>
+      { !disablePopover &&
+        <>
+          <div style={ styles.triangleShadow } />
+          <div style={ styles.triangle } />
+        </>
+      }
 
       <div style={ styles.body }>
         {!!headerComponent ? headerComponent : null}
@@ -223,6 +227,7 @@ Twitter.propTypes = {
   footerComponent: PropTypes.element,
   center: PropTypes.bool,
   checkmarkColor: PropTypes.string,
+  disablePopover: PropTypes.bool,
 }
 
 Twitter.defaultProps = {
@@ -236,6 +241,7 @@ Twitter.defaultProps = {
   footerComponent: null,
   center: false,
   checkmarkColor: null,
+  disablePopover: false,
 }
 
 export default ColorWrap(Twitter)

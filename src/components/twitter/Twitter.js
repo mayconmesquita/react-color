@@ -135,10 +135,10 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
   return (
     <div style={ disablePopover ? styles.card : { width } } className={ `twitter-picker ${ className }` }>
       { !disablePopover &&
-        <>
+        <React.Fragment>
           <div style={ styles.triangleShadow } />
           <div style={ styles.triangle } />
-        </>
+        </React.Fragment>
       }
 
       <div style={ styles.body }>

@@ -153,8 +153,8 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
                 check: {
                   color: checkmarkColor || colorUtils.getContrastingColor(c),
                   display: 'none',
-                  marginLeft: 3,
-                  marginTop: 3,
+                  marginLeft: 0,
+                  marginTop: 2,
                 },
               },
               active: {

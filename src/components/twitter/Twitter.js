@@ -23,7 +23,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
         transform: center ? 'translate(55%, 0%)' : null,
       },
       body: {
-        padding: '15px 9px 9px 15px',
+        padding: disablePopover ? 0 : '15px 9px 9px 15px',
       },
       label: {
         fontSize: '18px',

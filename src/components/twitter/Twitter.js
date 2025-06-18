@@ -76,6 +76,9 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
         borderRadius: '4px',
         margin: '0 6px 6px 0',
       },
+      swatchSelected: {
+        boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.60)',
+      },
       clear: {
         clear: 'both',
       },
@@ -185,12 +188,12 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
               key={ i }
               color={ c }
               hex={ c }
-              style={ styles.swatch }
+              style={{
+                ...styles.swatch,
+                ...(c && (hex === c.toLowerCase()) ? styles.swatchSelected : {})
+              }}
               onClick={ handleChange }
               onHover={ onSwatchHover }
-              focusStyle={{
-                boxShadow: `0 0 4px ${ c }`,
-              }}
             >
               <div style={ activeStyles.check }>
                 <CheckIcon />

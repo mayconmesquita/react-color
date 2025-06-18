@@ -17,7 +17,7 @@
     "jest": "jest",
     "eslint": "eslint src/**/*.js",
     "lib": "npm run clean && babel src -d lib",
-    "clean": "rm -rf lib && mkdir lib",
+    "clean": "rimraf lib && mkdir lib",
     "prepublish": "npm run lib",
     "docs": "npm run docs-server",
     "docs-server": "node ./scripts/docs-server",

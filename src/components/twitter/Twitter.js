@@ -150,6 +150,8 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
 
         { map(colors, (c, i) => {
 
+          const isSelected = c && (hex === c.toLowerCase())
+
           const activeStyles = reactCSS(
             {
               default: {
@@ -179,7 +181,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
             {
               'color-#FFFFFF': c === '#FFFFFF',
               transparent: c === 'transparent',
-              active: c && (hex === c.toLowerCase()),
+              active: isSelected,
             }
           )
 
@@ -188,9 +190,10 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
               key={ i }
               color={ c }
               hex={ c }
+              className={isSelected ? 'selected' : ''}
               style={{
                 ...styles.swatch,
-                ...(c && (hex === c.toLowerCase()) ? styles.swatchSelected : {})
+                ...(isSelected ? styles.swatchSelected : {})
               }}
               onClick={ handleChange }
               onHover={ onSwatchHover }

@@ -76,8 +76,11 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
         borderRadius: '4px',
         margin: '0 6px 6px 0',
       },
+      whiteSwatch: {
+        boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.25)',
+      },
       swatchSelected: {
-        boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.60)',
+        boxShadow: 'inset 0 0 0 1px rgba(0, 0, 0, 0.5)',
       },
       clear: {
         clear: 'both',
@@ -114,11 +117,11 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
     'top-center-triangle': {
       triangle: {
         top: '-10px',
-        left: `calc(${width} - 50% - 9px)`,
+        left: `calc(${ width } - 50% - 9px)`,
       },
       triangleShadow: {
         top: '-11px',
-        left: `calc(${width} - 50% - 9px)`,
+        left: `calc(${ width } - 50% - 9px)`,
       },
     },
   }, passedStyles), {
@@ -145,7 +148,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
       }
 
       <div style={ styles.body }>
-        {!!headerComponent ? headerComponent : null}
+        {headerComponent ? headerComponent : null}
         <div style={ styles.clear } />
 
         { map(colors, (c, i) => {
@@ -190,10 +193,11 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
               key={ i }
               color={ c }
               hex={ c }
-              className={isSelected ? 'selected' : ''}
+              className={ isSelected ? 'selected' : '' }
               style={{
                 ...styles.swatch,
-                ...(isSelected ? styles.swatchSelected : {})
+                ...(isSelected ? styles.swatchSelected : {}),
+                ...(!isSelected && c && (c.toLowerCase() === '#ffffff' || c.toLowerCase() === '#f0f0f0') ? styles.whiteSwatch : {}),
               }}
               onClick={ handleChange }
               onHover={ onSwatchHover }
@@ -204,11 +208,11 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
             </Swatch>
           )
         }) }
-        { !!disableCodeInput ? null :
+        { disableCodeInput ? null :
           <div>
             <div style={ styles.hash }>#</div>
             <EditableInput
-              label={null}
+              label={ null }
               style={{ input: styles.input }}
               value={ hex.replace('#', '') }
               onChange={ handleChange }
@@ -216,7 +220,7 @@ export const Twitter = ({ onChange, onSwatchHover, hex, colors, width, triangle,
           </div>
         }
         <div style={ styles.clear } />
-        {!!footerComponent ? footerComponent : null}
+        {footerComponent ? footerComponent : null}
         <div style={ styles.clear } />
       </div>
     </div>
